@@ -37,6 +37,7 @@ typedef struct line {
 
     line_type kind;
     int count;
+	int lineno;
 } Line;
 
 
@@ -129,6 +130,7 @@ typedef struct mmiot {
 #define INPUT_MASK	(MKD_NOHEADER|MKD_TABSTOP)
 
     Callback_data *cb;
+    Cstring sourcebase;
 } MMIOT;
 
 
@@ -151,6 +153,7 @@ typedef struct document {
     int html;			/* set after (internal) htmlify() */
     int tabstop;		/* for properly expanding tabs (ick) */
     char *ref_prefix;
+    Cstring sourcebase;
     MMIOT *ctx;			/* backend buffers, flags, and structures */
     Callback_data cb;		/* callback functions & private data */
 } Document;
@@ -211,7 +214,7 @@ extern void ___mkd_emblock(MMIOT*);
 extern void ___mkd_tidy(Cstring *);
 
 extern Document *__mkd_new_Document();
-extern void __mkd_enqueue(Document*, Cstring *);
+extern void __mkd_enqueue(Document*, Cstring *, int);
 extern void __mkd_header_dle(Line *);
 
 extern int  __mkd_io_strget(struct string_stream *);

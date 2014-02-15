@@ -1553,6 +1553,21 @@ printtable(Paragraph *pp, MMIOT *f)
     return 1;
 }
 
+static int
+sourcelink(Line *t, MMIOT *f)
+{
+    if (t && S(f->sourcebase)) {
+		int size = 45 + S(f->sourcebase);
+		char *buf = malloc(size);
+		if (buf) {
+			int ret = snprintf(buf, size, "<a href=\"%s#L%d\" class=\"view-source\"/>", T(f->sourcebase), t->lineno);
+			if (ret > 0) {
+				Qwrite(buf, ret, f);
+			}
+		}
+		free(buf);
+    }
+}
 
 static int
 printblock(Paragraph *pp, MMIOT *f)
@@ -1578,6 +1593,8 @@ printblock(Paragraph *pp, MMIOT *f)
 	}
 	t = t->next;
     }
+
+    sourcelink(pp->text, f);
     Qstring(Begin[pp->align], f);
     text(f);
     Qstring(End[pp->align], f);
@@ -1590,6 +1607,7 @@ printcode(Line *t, char *lang, MMIOT *f)
 {
     int blanks;
 
+	sourcelink(t, f);
     Qstring("<pre><code", f);
     if (lang) {
       Qstring(" class=\"", f);

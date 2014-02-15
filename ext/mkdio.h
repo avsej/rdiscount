@@ -77,6 +77,7 @@ void mkd_mmiot_flags(FILE *, MMIOT *, int);
 void mkd_flags_are(FILE*, mkd_flag_t, int);
 
 void mkd_ref_prefix(MMIOT*, char*);
+void mkd_sourcebase(MMIOT*, char*, int);
 
 
 /* special flags for markdown() and mkd_text()

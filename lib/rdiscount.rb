@@ -75,6 +75,9 @@ class RDiscount
   # Disable strikethrough processing.
   attr_accessor :no_strikethrough
 
+  # Set base for source back links
+  attr_accessor :source_base
+
   # Create a RDiscount Markdown processor. The +text+ argument
   # should be a string containing Markdown text. Additional arguments may be
   # supplied to set various processing options:
@@ -95,6 +98,8 @@ class RDiscount
   # * <tt>:no_pseudo_protocols</tt> - Do not process pseudo-protocols.
   # * <tt>:no_superscript</tt> - Disable superscript processing.
   # * <tt>:no_strikethrough</tt> - Disable strikethrough processing.
+  # * <tt>:source_base</tt> - Base for source back links (requires
+  #   string argument)
   #
   def initialize(text, *extensions)
     @text  = text
